@@ -43,11 +43,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #Add our new application 
     'catalog.apps.CatalogConfig', #This object was created for us in /catalog/apps.py
-    'behave_django'
+    'behave_django',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

@@ -1,6 +1,5 @@
 from behave import given, when, then
 
-
 @given(u'this step exists')
 def step_exists(context):
     pass
