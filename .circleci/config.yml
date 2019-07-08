@@ -65,6 +65,7 @@ jobs:
             python manage.py migrate        
       - run:
           command: |
+            . venv/bin/activate
             python manage.py behave
       - store_test_results:
           path: test-results
