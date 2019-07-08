@@ -31,13 +31,13 @@ jobs:
       - run:
           command: |
             pipenv run python manage.py behave
+          filters:
+            branches:
+              only:
+                - master
+                - develop
       - store_test_results:
           path: test-results
       - store_artifacts:
           path: test-results
           destination: tr1
-    filters:
-      branches:
-        only:
-          - master
-          - develop
