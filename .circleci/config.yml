@@ -41,3 +41,10 @@ jobs:
       - store_artifacts:
           path: test-results
           destination: tr1
+<<<<<<< HEAD
+=======
+    branches:
+      only:
+        - master
+        - develop
+>>>>>>> f3ef4d42d43f0bdcd3c5a60aa5403421fdf97da1
