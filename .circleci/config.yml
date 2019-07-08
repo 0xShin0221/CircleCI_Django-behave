@@ -29,8 +29,6 @@ jobs:
           key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           command: |
-            sudo pip install virtualenv
-            source .venv/bin/activate
             pip install -r requirements.txt
       - save_cache:
           key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
