@@ -20,8 +20,9 @@ jobs:
           key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           command: |
-            sudo pip install pipenv
-            pipenv install
+            sudo pip install virtualenv
+            source .venv/bin/activate
+            pip install-r requirements.txt
       - save_cache:
           key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
@@ -30,7 +31,7 @@ jobs:
             - '/usr/local/lib/python3.6/site-packages'
       - run:
           command: |
-            pipenv run python manage.py behave
+            python manage.py behave
           filters:
             branches:
               only:
