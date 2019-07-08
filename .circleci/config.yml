@@ -13,14 +13,13 @@ jobs:
       - image: circleci/python:3.6.4
         environment:
           PIPENV_VENV_IN_PROJECT: true
-          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
       - image: circleci/mysql:5.7
         environment:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: test_database
           MYSQL_USER: docker
           MYSQL_PASSWORD: docker
-          MYSQL_HOST: '127.0.0.1' # Point 1
+          MYSQL_HOST: '127.0.0.1' 
           TZ: 'Asia/Tokyo'
     steps:
       - checkout
@@ -30,8 +29,7 @@ jobs:
           key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
         name: Wait for DB
-        command: dockerize -wait tcp://127.0.0.1:3306 -timeout 3m # Point 2
-      
+        command: dockerize -wait tcp://127.0.0.1:3306 -timeout 3m 
       - run:
           command: |
             pip install -r requirements.txt
