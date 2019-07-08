@@ -64,7 +64,7 @@ jobs:
 workflows:
   testCI:
     jobs:
-      - test-job
+      - test-job:
           filters:
             branches:
               only:
