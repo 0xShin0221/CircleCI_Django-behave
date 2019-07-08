@@ -20,24 +20,30 @@ jobs:
           MYSQL_ROOT_HOST: "%"
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
     steps:
+      # リポジトリのコードを working_directory にチェックアウト
       - checkout
-      - run: sudo chown -R circleci:circleci /usr/local/bin
-      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
+
+      # requirements.txtに変更がなければ、以前作成したPython仮想環境を復元
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "requirements.txt" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
+
+      # 現在のrequirements.txtに基づきPython仮想環境を作成または更新
       - run:
           name: install dependencies
           command: |
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
+
+      # Python仮想環境を保管
       - save_cache:
           paths:
             - ./venv
           key: v1-dependencies-{{ checksum "requirements.txt" }}
+
       # dockerizeのインストール
       - run:
           name: install dockerize
@@ -46,10 +52,11 @@ jobs:
             true
           environment:
             DOCKERIZE_VERSION: v0.5.0
+
+      # mysqlコンテナの起動待機
       - run:
-        name: Wait for DB
-        command: dockerize -wait tcp://127.0.0.1:3306 -timeout 3m #
-      # データベースのテーブルの作成などの初期化(データベースはコンテナ初期化時に作成される)
+          name: Wait for db
+          command: dockerize -wait tcp://localhost:3306 -timeout 1m
       - run:
           name: initialize db
           command: |
