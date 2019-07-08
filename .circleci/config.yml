@@ -36,3 +36,8 @@ jobs:
       - store_artifacts:
           path: test-results
           destination: tr1
+    filters:
+      branches:
+        only:
+          - master
+          - develop
